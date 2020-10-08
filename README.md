@@ -1,5 +1,5 @@
 
-Format S3 JSON Results like Tree View
+Format S3 JSON Results to a Tree View JSON format
 ===============
 
 ### How to use:
