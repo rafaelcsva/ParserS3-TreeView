@@ -49,8 +49,8 @@ function dfs(key){
     return tmpObj;
 }
 
-const fileInput = process.argv.length > 2 ? process.argv[2] ? 'AMAZON_S3_RESULTS.json';
-var obj = JSON.parse(fs.readFileSync('AMAZON_S3_RESULTS.json'));
+const fileInput = process.argv.length > 2 ? process.argv[2] : 'AMAZON_S3_RESULTS.json';
+var obj = JSON.parse(fs.readFileSync(fileInput));
 
 for(let d = 0 ; d < obj.length ; d++){
     let folders = obj[d].Key.split('/')
