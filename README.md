@@ -93,5 +93,3 @@ OUTPUT
   }
 ]
 ```
-
-That was my JSON code block.
