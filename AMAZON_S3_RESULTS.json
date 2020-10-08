@@ -1,0 +1,11 @@
+[
+    {"Key":"folder/","LastModified":"2020-10-01T18:28:30.000Z",
+        "ETag":"\"etagetag\"","Size":0,"StorageClass":"STANDARD"},
+    {"Key": "folder/subfolder/", "ETag":"\"etagetag\"","Size":0,"StorageClass":"STANDARD"},
+    {"Key": "folder/subfolder/file.pdf", "ETag":"\"etagetag\"","Size":1000,"StorageClass":"STANDARD"},
+    {"Key":"folder1/","LastModified":"2020-10-01T18:28:30.000Z",
+        "ETag":"\"etagetag\"","Size":0,"StorageClass":"STANDARD"},
+    {"Key": "folder1/subfolder/", "ETag":"\"etagetag\"","Size":0,"StorageClass":"STANDARD"},
+    {"Key": "folder1/subfolder/file.pdf", "ETag":"\"etagetag\"","Size":1000,"StorageClass":"STANDARD"},
+    {"Key": "folder1/subfolder/file1.pdf", "ETag":"\"etagetag\"","Size":1000,"StorageClass":"STANDARD"}
+]
