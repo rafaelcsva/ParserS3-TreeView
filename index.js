@@ -8,8 +8,6 @@ function dfs(key){
     marked[key] = true;
     let tmpObj = [];
 
-    // console.log(key);
-
     for(let i = 0 ; i < childrens[key].length ; i++){
         if(marked[childrens[key][i].key] !== undefined)
             continue;
@@ -49,52 +47,57 @@ function dfs(key){
     return tmpObj;
 }
 
-const fileInput = process.argv.length > 2 ? process.argv[2] : 'AMAZON_S3_RESULTS.json';
-var obj = JSON.parse(fs.readFileSync(fileInput));
+function s3RegisterToTreeView(s3Registers){
+    var obj = s3Registers;
 
-for(let d = 0 ; d < obj.length ; d++){
-    let folders = obj[d].Key.split('/')
-
-    if(folders.length === 1) continue;
-
-    let mkey = '';
-
-    for(let i = 1 ; i < folders.length ; i++){
-        mkey += folders[i - 1];
-
-        if(childrens[mkey] === undefined){
-            childrens[mkey] = [];
-        }
-
-        if(i != folders.length - 1)
-            childrens[mkey].push({name: folders[i], extension: 'folder', expanded: false, key: mkey + folders[i]});
-        else {
-            var tp = folders[i].split('.').pop();
-
-            childrens[mkey].push({
-                name: folders[i], extension: obj[d].Size === 0 ? 'folder' : tp,
-                size: obj[d].Size, key: mkey + folders[i], path: obj[d].Key
-            });
+    for(let d = 0 ; d < obj.length ; d++){
+        let folders = obj[d].Key.split('/')
+    
+        if(folders.length === 1) continue;
+    
+        let mkey = '';
+    
+        for(let i = 1 ; i < folders.length ; i++){
+            mkey += folders[i - 1];
+    
+            if(childrens[mkey] === undefined){
+                childrens[mkey] = [];
+            }
+    
+            if(i != folders.length - 1)
+                childrens[mkey].push({name: folders[i], extension: 'folder', expanded: false, key: mkey + folders[i]});
+            else {
+                var tp = folders[i].split('.').pop();
+    
+                childrens[mkey].push({
+                    name: folders[i], extension: obj[d].Size === 0 ? 'folder' : tp,
+                    size: obj[d].Size, key: mkey + folders[i], path: obj[d].Key
+                });
+            }
         }
     }
+    
+    for(key in childrens){
+        if(marked[key] !== undefined)
+            continue;
+    
+        marked[key] = true;
+    
+        let node = {name: key, extension: 'folder', expanded: false, files: 0, size: 0};
+    
+        let child = dfs(key);
+    
+        node.files += child.reduce((total, obj) => total + obj.files, 0);
+        node.size += child.reduce((total, obj) => total + obj.size, 0);
+    
+        node.childEntries = child;
+    
+        treeObj.push(node);
+    }
+
+    return treeObj;
 }
 
-for(key in childrens){
-    if(marked[key] !== undefined)
-        continue;
-
-    marked[key] = true;
-
-    let node = {name: key, extension: 'folder', expanded: false, files: 0, size: 0};
-
-    let child = dfs(key);
-
-    node.files += child.reduce((total, obj) => total + obj.files, 0);
-    node.size += child.reduce((total, obj) => total + obj.size, 0);
-
-    node.childEntries = child;
-
-    treeObj.push(node);
-}
-
-fs.writeFileSync('TREE_VIEW.json', JSON.stringify(treeObj));
+module.exports = {
+    s3RegisterToTreeView: s3RegisterToTreeView
+};

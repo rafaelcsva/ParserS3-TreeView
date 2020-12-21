@@ -1,5 +1,5 @@
 {
-  "name": "parse_s3_to_tree_view",
+  "name": "@rafaelcsva/parse_s3_to_tree_view",
   "version": "1.0.0",
   "description": "Parse s3 results to a tree view format",
   "main": "index.js",
@@ -16,5 +16,13 @@
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.1-security"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelcsva/ParserS3-TreeView.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rafaelcsva/ParserS3-TreeView/issues"
+  },
+  "homepage": "https://github.com/rafaelcsva/ParserS3-TreeView#readme"
 }
