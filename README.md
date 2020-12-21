@@ -2,15 +2,28 @@
 Format S3 JSON Results to a Tree View JSON format
 ===============
 
-### How to use:
+### How to install:
 
-Inside the project run
-`npm install`
-and then run the script
-`node index.js PathToYourS3Result.json`
-It will generate the tree view JSON file inside the project with the name `TREE_VIEW.json`
+run `npm install @rafaelcsva/parse_s3_to_tree_view`.
 
-S3 REGISTERS
+
+#### How to use
+
+----
+
+```javascript
+const parser = require('@rafaelcsva/parse_s3_to_tree_view');
+const fs = require('fs');
+
+const fileInput = './AMAZON_S3_RESULTS.json';
+var obj = JSON.parse(fs.readFileSync(fileInput));
+
+console.log(parser.s3RegisterToTreeView(obj));
+```
+
+===============
+
+AMAZON_S3_RESULTS.json
 ----
 
 ```json
@@ -29,7 +42,7 @@ S3 REGISTERS
 
 ===============
 
-OUTPUT
+OUTPUT.json
 ----
 
 ```json
